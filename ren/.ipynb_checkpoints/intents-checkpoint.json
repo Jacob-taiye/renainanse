@@ -1,0 +1,49 @@
+{"intents": [
+  {"tag":"Greetings",
+    "patterns": ["Hi there","how are you","is anyone there?","hey","hello","good morning","good afternoon","good evening","hi"],
+    "responses": ["Hello","Good to see you","Hi there","How can i help you"],
+    "context": [""]
+  },
+  {"tag": "Goodbye",
+  "patterns": ["see you later","goodbye","nice chatting with you","bye"],
+  "responses":  ["see you","have a nice day","Bye","bye, hope to see you soon"],
+  "context": [""]},
+  
+  {"tag": "Thanks",
+  "patterns": ["that was helpful","thank you","thanks"],
+  "responses": ["my pleasure","you're welcome"],
+  "context": [""]},
+
+  {"tag": "Admissions",
+  "patterns": ["how do i apply","what are the admission requirements","what do i need to gain admission", "what is your cut of mark","cut of mark","admission requirements","would there be post utme?","how is the post utme conducted","application form for regular"],
+  "responses": [],
+  "context":  [""]},
+
+  {"tag": "Courses",
+  "patterns":["what are the available courses","what courses do you offer","want to know about your courses","courses"],
+  "responses": ["NATURAL AND APPLIED SCIENCE: Bio-chemistry, computer science,industrial chemistry,industrial physics micro-biology MANAGEMENT AND SOCIAL SCIENCE: Accountancy, Business Administration, Economics, History and international relations, Mass communication,Political science,Psychology, Banking and finance  FACULTY OF LAW: Law FACULTY OF HEALTH SCIENCE: Nursing, medical lab science "],
+  "context": [""]},
+
+  {"tag":"Computer science",
+  "patterns": ["computer science","admission requirement for computer science","jamb score for computer science","cut off mark for computer science"],
+  "responses": ["for admission in computer science an applicant is require to have minimum of five (5) credits in WAEC or NECO in not more than two sittings(for both Regular and JUPEB applicant) and a JAMB score of 120"]},
+
+  {"tag": "Accredited courses",
+  "patterns": ["list of accredited courses","is computer science accredited","is economics accredited","is accountancy accredited","is law accredited","accredited courses"],
+  "responses": [" this are all accredited courses in RNUs NATURAL AND APPLIED SCIENCE: Bio-chemistry, computer science,industrial chemistry,industrial physics micro-biology MANAGEMENT AND SOCIAL SCIENCE: Accountancy, Business Administration, Economics, History and international relations, Mass communication,Political science,Psychology, Banking and finance"],
+  "context": [""]},
+
+  {"tag": "E-library",
+  "patterns": ["how to access the e-library","elibrary","those the school has e library"],
+  "responses": ["This E-Library portal is necessitated by our drive and committment in providing a user-friendly and pleasurable access to our the vast library collections. You can aceess our University Library via the latest KOHA Library Management System as well access million of other open source educational and research electronic library resources such as ebooks, articles, and multimedia educational resources covering all areas of human endeavours such as Engineering, Sciences, Law and Huminaities. Welcome on Board!."],
+  "context": [""]},
+
+  {"tag": "Calender",
+  "patterns": ["when is the school resuming","resuming","new calender year"],
+  "responses": ["for the current calender year follow the link https://www.rnu.edu.ng/calendar.php"]},
+
+  {"tag": "Tuition",
+  "patterns": ["how much is the school fees","school fees of all department"],
+  "responses": ["tuition fees for each department varies on the school year or level you are, while for new students you are to pay acceptance fee of 20000 naira and then the school fees"],
+  "context": [""]}
+]}

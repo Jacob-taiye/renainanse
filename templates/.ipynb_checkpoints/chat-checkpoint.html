@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Chatbot</title>
+    <title>My School Chatbot</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div id="header">
+        <h1>Welcome to My School</h1>
+        <p>Ask our chatbot for information or assistance!</p>
+    </div>
+    <h2>Chatbot</h2>
+    <div id="chat-container">
+        <div id="chat-log">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <form id="chat-form">
+            <input type="text" id="user-input" autocomplete="off" placeholder="Enter your message...">
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <script>
+    document.getElementById("chat-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        sendMessage();
+    });
+
+    function appendMessage(message, isUser) {
+        const chatLog = document.getElementById("chat-log");
+        const messageElement = document.createElement("div");
+        messageElement.textContent = message;
+        messageElement.classList.add(isUser ? "user-message" : "chatbot-message");
+        chatLog.appendChild(messageElement);
+        chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+        appendMessage("You: " + userInput, true);
+
+        // Send user input to Django view using AJAX
+        fetch("/chatbot/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: "user_input=" + encodeURIComponent(userInput),
+        })
+        .then(response => response.json())
+        .then(data => {
+            const botResponse = data.response;
+            appendMessage("Chatbot: " + botResponse, false);
+        });
+
+        document.getElementById("user-input").value = "";
+    }
+
+    // Function to get CSRF token cookie for AJAX requests
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (const cookie of cookies) {
+                const cookieTrimmed = cookie.trim();
+                if (cookieTrimmed.startsWith(name + "=")) {
+                    cookieValue = decodeURIComponent(cookieTrimmed.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+</body>
+</html>

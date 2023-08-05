@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!-- {% extends "base.html" %} -->
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Renaissance Chatbot</title>
+
+    <link rel="stylesheet" href="index.css">
+
+    <!-- boxicon cdn link -->
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+
+
+
+</head>
+
+<body>
+
+<!-- {% block content %} -->
+
+    <header>
+
+        <img src="./images/Renaissance.png" alt="RNU">
+
+        <a href="#"><span>Renaiss</span>ance</a>
+
+        <a href="#"><span>University</span></a>
+
+    </header>
+
+    <div id="header">
+        <h1>Welcome to My School</h1>
+        <p>Ask our chatbot for information or assistance!</p>
+    </div>
+    <h2>Chatbot</h2>
+    <div id="chat-container">
+        <div id="chat-log">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <form id="chat-form">
+            <input type="text" id="user-input" autocomplete="off" placeholder="Enter your message...">
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <div id="map-container">
+        <!-- Google Map will be displayed here -->
+    </div>
+
+
+
+        <footer>
+		    <div class="social">
+
+				<a href="#"><i class='bx bxl-facebook-circle newF' ></i></a>
+
+				<a href="#"><i class='bx bxl-twitter newI' ></i></a>
+
+			</div>
+
+        <p>&copy; 2023 Renaissance University All rights reserved</p>
+     </footer>
+
+    
+
+    <script src="index.js"></script>
+
+    <script>
+        document.getElementById("chat-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            sendMessage();
+        });
+    
+        function appendMessage(message, isUser) {
+            const chatLog = document.getElementById("chat-log");
+            const messageElement = document.createElement("div");
+            messageElement.textContent = message;
+            messageElement.classList.add(isUser ? "user-message" : "chatbot-message");
+            chatLog.appendChild(messageElement);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+    
+        function sendMessage() {
+            const userInput = document.getElementById("user-input").value;
+            appendMessage("You: " + userInput, true);
+    
+            // Send user input to Django view using AJAX
+            fetch("/chatbot/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": getCookie("csrftoken"),
+                },
+                body: "user_input=" + encodeURIComponent(userInput),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const botResponse = data.response;
+                appendMessage("Chatbot: " + botResponse, false);
+            });
+    
+            document.getElementById("user-input").value = "";
+        }
+    
+        // Function to get CSRF token cookie for AJAX requests
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (const cookie of cookies) {
+                    const cookieTrimmed = cookie.trim();
+                    if (cookieTrimmed.startsWith(name + "=")) {
+                        cookieValue = decodeURIComponent(cookieTrimmed.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        function initMap() {
+                const schoolLocation = { lat: YOUR_LATITUDE, lng: YOUR_LONGITUDE };
+                const mapOptions = {
+                    zoom: 14,
+                    center: schoolLocation,
+                };
+                const map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
+    
+                const marker = new google.maps.Marker({
+                    position: schoolLocation,
+                    map: map,
+                    title: "My School",
+                });
+            }
+    </script>
+    
+
+</body>
+
+</html>

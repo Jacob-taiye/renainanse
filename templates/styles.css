@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+}
+
+#header {
+    background-color: #8E8E8E;
+            color: #FFF;
+            padding: 5px 10px;
+            text-align: center;
+            font-size: 24px;
+}
+
+#chat-container {
+    display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 180px); /* Adjust as needed */
+            margin-top: 20px;
+}
+
+#chat-log {
+    background-color: #FFF;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+}
+
+#chat-form {
+    display: flex;
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#user-input:focus {
+    outline: none;
+    border-color: #333;
+}
+
+#send-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* ... Other CSS styles ... */
+
+.user-message {
+    text-align: right;
+    color: #333;
+    background-color: #f1f1f1;
+}
+
+.chatbot-message {
+    text-align: left;
+    color: #fff;
+    background-color: #333;
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 768px) {
+    .header {
+        font-size: 20px;
+    }
+    #chat-container {
+        width: 90%;
+        padding: 10px;
+    }
+}
